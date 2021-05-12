@@ -37,20 +37,17 @@ public class BulletBehaviour : MonoBehaviour
     {   
         Invoke("DestroyGameObject", timeDestroy);
         transform.Translate(Vector2.right * varSpeed * Time.deltaTime);
-        Debug.Log("a");
     } 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("b");
         EnemyBehaviour enemy = collision.GetComponent<EnemyBehaviour>();
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("c");
             DestroyGameObject();
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //enemy.TakeHit(projectileDmg);
+            enemy.TakeHit(projectileDmg);
             DestroyGameObject();
         }
     }

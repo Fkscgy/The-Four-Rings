@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+    
     Rigidbody2D rig;
     public float varSpeed;
 
@@ -14,6 +15,8 @@ public class PlayerBehaviour : MonoBehaviour
     private float nextFire;
     public static float playerHP;
     public float maxHP;
+    public int typeOfWeapon;
+    public GameObject aaa;
     
     void Start()
     {

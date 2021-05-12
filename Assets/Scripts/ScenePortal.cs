@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class sprite : MonoBehaviour
+public class ScenePortal : MonoBehaviour
 {
     public string sceneToLoad;
-    public bool a;
+    bool a;
     
     void Update()
     {
