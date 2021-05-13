@@ -10,7 +10,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float varSpeed;
 
     public Transform bulletSpawn;
-    public GameObject cookieObject;
+    public GameObject bulletObject;
     public float fireRate;
     private float nextFire;
     public static float playerHP;
@@ -20,17 +20,21 @@ public class PlayerBehaviour : MonoBehaviour
     
     void Start()
     {
+        //define o hp inicial sendo o maximo
         playerHP = maxHP;
         rig = GetComponent<Rigidbody2D>();
+        //metodo da barra de vida
         Health.SetHealth(playerHP,maxHP);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //camera seguindo jogador apenas em eixo x e y
         Camera.main.transform.position = new Vector3(transform.position.x,transform.position.y,Camera.main.transform.position.z);
+        //metodo da barra de vida
         Health.SetHealth(playerHP,maxHP);
-        
+        //alterar o sprite da bala com base no hp
         if (playerHP >70)
         {
             BulletBehaviour.typeOfBullet = 0;
@@ -41,8 +45,11 @@ public class PlayerBehaviour : MonoBehaviour
         {
             BulletBehaviour.typeOfBullet = 2;
         }
+        //atirar
         Fire();
+        //movimento
         transform.position += new Vector3(Input.GetAxis("Horizontal")*varSpeed*Time.deltaTime,Input.GetAxis("Vertical")*varSpeed*Time.deltaTime, 0f);
+        //gameover
         if (playerHP <=0)
         {
             SceneManager.LoadScene("GameOver");
@@ -53,9 +60,10 @@ public class PlayerBehaviour : MonoBehaviour
         if (Input.GetButtonDown("Fire1") && Time.time >nextFire)
         {
             nextFire = Time.time + fireRate;
-            GameObject cloneCookie = Instantiate (cookieObject, bulletSpawn.position, bulletSpawn.rotation);
+            GameObject cloneCookie = Instantiate (bulletObject, bulletSpawn.position, bulletSpawn.rotation);
         }
     }
+    //metodo para dar dano no palyer
     public void PlayerDamage(float num)
     {
         playerHP -= num;
