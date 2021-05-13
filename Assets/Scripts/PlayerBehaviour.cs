@@ -28,17 +28,18 @@ public class PlayerBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Camera.main.transform.position = new Vector3(transform.position.x,transform.position.y,Camera.main.transform.position.z);
         Health.SetHealth(playerHP,maxHP);
         
         if (playerHP >70)
         {
-            BulletBehaviour.typeOfBullet = 1;
+            BulletBehaviour.typeOfBullet = 0;
         } else if(playerHP >40)
         {
-            BulletBehaviour.typeOfBullet = 2;
+            BulletBehaviour.typeOfBullet = 1;
         } else if (playerHP<=40)
         {
-            BulletBehaviour.typeOfBullet = 3;
+            BulletBehaviour.typeOfBullet = 2;
         }
         Fire();
         transform.position += new Vector3(Input.GetAxis("Horizontal")*varSpeed*Time.deltaTime,Input.GetAxis("Vertical")*varSpeed*Time.deltaTime, 0f);

@@ -4870,11 +4870,10 @@ MonoBehaviour:
   projectileDmg: 10
   varSpeed: 15
   timeDestroy: 1
-  range: 15
-  particulas: {fileID: 0}
-  emoji1: {fileID: 21300000, guid: 3353744dcd5cb844cbc2c5ccd8e68b07, type: 3}
-  emoji2: {fileID: 21300000, guid: ff3773f4924510b438b4cce9e949dd4f, type: 3}
-  emoji3: {fileID: 21300000, guid: d50e6902e4a7b2f4dad38838fbe0937a, type: 3}
+  emojis:
+  - {fileID: 21300000, guid: 3353744dcd5cb844cbc2c5ccd8e68b07, type: 3}
+  - {fileID: 21300000, guid: ff3773f4924510b438b4cce9e949dd4f, type: 3}
+  - {fileID: 21300000, guid: d50e6902e4a7b2f4dad38838fbe0937a, type: 3}
 --- !u!212 &2546940746271276369
 SpriteRenderer:
   m_ObjectHideFlags: 0

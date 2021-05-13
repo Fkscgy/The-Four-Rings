@@ -8,27 +8,13 @@ public class BulletBehaviour : MonoBehaviour
     public float varSpeed;
     public float timeDestroy;
     public static int typeOfBullet = 1;
-    public Sprite emoji1;
-    public Sprite emoji2;
-    public Sprite emoji3;
+    public Sprite[] emojis;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (typeOfBullet == 1)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = emoji1;
-            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emoji1);
-        }
-        if (typeOfBullet == 2)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = emoji2;
-            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emoji2);
-        }
-        if (typeOfBullet == 3)
-        {
-            gameObject.GetComponent<SpriteRenderer>().sprite = emoji3;
-            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emoji3);
-        }
+        gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
+        gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
     }
     
     void Update()
