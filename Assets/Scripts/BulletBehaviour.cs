@@ -7,9 +7,7 @@ public class BulletBehaviour : MonoBehaviour
     public float projectileDmg; 
     public float varSpeed;
     public float timeDestroy;
-    public float range = 15f;
-    public GameObject particulas;
-    public static int typeOfBullet;
+    public static int typeOfBullet = 1;
     public Sprite emoji1;
     public Sprite emoji2;
     public Sprite emoji3;
@@ -32,7 +30,7 @@ public class BulletBehaviour : MonoBehaviour
             gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emoji3);
         }
     }
-    // Update is called once per frame
+    
     void Update()
     {   
         Invoke("DestroyGameObject", timeDestroy);

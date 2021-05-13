@@ -16,17 +16,20 @@ public class PlayerBehaviour : MonoBehaviour
     public static float playerHP;
     public float maxHP;
     public int typeOfWeapon;
-    public GameObject aaa;
+    public HealthBarBehaviour Health;
     
     void Start()
     {
         playerHP = maxHP;
         rig = GetComponent<Rigidbody2D>();
+        Health.SetHealth(playerHP,maxHP);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Health.SetHealth(playerHP,maxHP);
+        
         if (playerHP >70)
         {
             BulletBehaviour.typeOfBullet = 1;
