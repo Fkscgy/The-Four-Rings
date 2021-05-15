@@ -9,8 +9,7 @@ public class EnemyBehaviour : MonoBehaviour
     public float HitPoints;
     public float MaxHitPoints;
     public HealthBarBehaviour HealthBar;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         HitPoints = MaxHitPoints;
@@ -31,10 +30,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerBehaviour player = collision.collider.GetComponent<PlayerBehaviour>();
+        //PlayerBehaviour player = collision.collider.GetComponent<PlayerBehaviour>();
         if (collision.collider.CompareTag("Player"))
         {
-            player.PlayerDamage(30f);
+            //player.PlayerDamage(30f);
         }
     }
 }

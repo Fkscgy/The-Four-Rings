@@ -2,26 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletBehaviour : MonoBehaviour
+public class AlysaBulletBehaviour : MonoBehaviour
 {
-    public float projectileDmg; 
-    public float varSpeed;
-    public float timeDestroy;
+    float projectileDmg = 10f;
+    float varSpeed = 15f;
+    float timeDestroy = 1f;
     public static int typeOfBullet;
-    public Sprite[] emojis;
-
+    [SerializeField]
+    Sprite[] emojis;
 
     void Start()
     {
         //define o sprite da particula e do objeto da bala da alysa, esse sprites estão dentro de um array, e o indicie é a variavel global typeOfBullet que é modificidada no codigo do player
         gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
         gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
+        Invoke("DestroyGameObject", timeDestroy);
     }
     
     void Update()
-    {   
-        //função que irá destruir a bala depois de certo tempo:
-        Invoke("DestroyGameObject", timeDestroy);
+    {
         //função que move o projetil pra frente:
         transform.Translate(Vector2.right * varSpeed * Time.deltaTime);
     } 
