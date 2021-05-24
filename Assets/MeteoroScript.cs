@@ -2,28 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlysaBulletBehaviour : MonoBehaviour
+public class MeteoroScript : MonoBehaviour
 {
     float projectileDmg = 10f;
     float varSpeed = 15f;
     float timeDestroy = 1f;
-    public static int typeOfBullet = 0;
     [SerializeField]
     Sprite[] emojis;
-
+    int aleatorio;
+    
     void Start()
     {
-        //define o sprite da particula e do objeto da bala da alysa, esse sprites estão dentro de um array, e o indicie é a variavel global typeOfBullet que é modificidada no codigo do player
-        gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
-        gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
+        aleatorio = Random.Range(0,3);
+        gameObject.GetComponent<SpriteRenderer>().sprite = emojis[aleatorio];
+        gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[aleatorio]);
         Invoke("DestroyGameObject", timeDestroy);
     }
-    
+
     void Update()
     {
-        //função que move o projetil pra frente:
         transform.Translate(Vector2.right * varSpeed * Time.deltaTime);
-    } 
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         //serve pra definir oq é um inimigo
@@ -39,7 +38,6 @@ public class AlysaBulletBehaviour : MonoBehaviour
             DestroyGameObject();
         }
     }
-    //metodo que destroi o objeto, mas mantem as particulas causando um melhor efeito visual
     void DestroyGameObject()
     {
         foreach (Transform child in transform)

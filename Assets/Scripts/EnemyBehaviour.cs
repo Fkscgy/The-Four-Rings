@@ -30,10 +30,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        //PlayerBehaviour player = collision.collider.GetComponent<PlayerBehaviour>();
+        PlayerOneBehaviour player = collision.collider.GetComponent<PlayerOneBehaviour>();
         if (collision.collider.CompareTag("Player"))
         {
-            //player.PlayerDamage(30f);
+            player.PlayerTakeDamage(10f);
         }
     }
 }

@@ -1,20 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMoviments : MonoBehaviour
 {
-    Vector2 movementInput;
     float varSpeed = 5;
     float jumpForce = 10;
     bool grounded;
     Rigidbody2D rig;
+    [SerializeField]    
+    Transform groundCheck;
     [SerializeField]
-    private Transform groundCheck;
-    [SerializeField]
-    private LayerMask groundLayers;
-    bool isJumping= false;
+    LayerMask groundLayers;
 
     // Start is called before the first frame update
     void Start()
@@ -28,22 +25,19 @@ public class PlayerMoviments : MonoBehaviour
         {
             grounded = true;
         }
-        transform.position += new Vector3(movementInput.x*varSpeed*Time.deltaTime,0f,0f);
+        transform.position += new Vector3(Input.GetAxis("Horizontal")*varSpeed*Time.deltaTime,0f,0f);
     }
     void Update()
     {
-        if (isJumping && grounded)
+        Jump();
+    }
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && grounded)
         {
+            Debug.Log("a");
             grounded = false;
             rig.velocity = Vector2.up * jumpForce;
         }
-    }
-    public void OnMoveInput(InputAction.CallbackContext ctx)
-    {
-        movementInput = ctx.ReadValue<Vector2>();
-    }
-    public void OnJumpInput(InputAction.CallbackContext ctx)
-    {
-        isJumping = ctx.action.triggered;
     }
 }
