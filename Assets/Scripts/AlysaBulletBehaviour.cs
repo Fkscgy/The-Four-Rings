@@ -6,16 +6,23 @@ public class AlysaBulletBehaviour : MonoBehaviour
 {
     float projectileDmg = 10f;
     float varSpeed = 15f;
-    float timeDestroy = 1f;
+    const float timeDestroy = 1f;
     public static int typeOfBullet = 0;
+    public int typeOfSpawn;
     [SerializeField]
     Sprite[] emojis;
 
     void Start()
     {
-        //define o sprite da particula e do objeto da bala da alysa, esse sprites estão dentro de um array, e o indicie é a variavel global typeOfBullet que é modificidada no codigo do player
-        gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
-        gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
+        if (typeOfSpawn == 0)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
+            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
+        } else if(typeOfSpawn == 1)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = emojis[Random.Range(0,3)];
+            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[Random.Range(0,3)]);
+        }
         Invoke("DestroyGameObject", timeDestroy);
     }
     

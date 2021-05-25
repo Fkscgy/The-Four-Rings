@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class PlayerOneBehaviour : MonoBehaviour
 {
-    float nextFire;
+    
     [SerializeField]
     float fireRate;
     [SerializeField]
     GameObject bullet;
     [SerializeField]
     Transform bulletSpawn;
-    float varSpeed = 5;
-    float jumpForce = 10;
-    Rigidbody2D rig;
     [SerializeField]    
     Transform groundCheck;
     [SerializeField]
     LayerMask groundLayers;
     [SerializeField]
     HealthBarBehaviour healthBar;
+    float varX;
+    float varSpeed = 5;
+    float jumpForce = 10;
+    Rigidbody2D rig;
     float maxHealth = 1000;
     float playerHealth;
-    public static bool ultimateIsReady = false;
+    float nextFire;
+    bool ultimateIsReady = false;
     void Start()
     {
         playerHealth = maxHealth;
@@ -31,10 +33,13 @@ public class PlayerOneBehaviour : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        if(Input.GetKeyDown(KeyCode.U) && ultimateIsReady)
         {
-            ultimateIsReady = true;
-            Debug.Log("A ultimate ta carregada");
+            StartCoroutine(example());
+            ultimateIsReady = false;
+        } else if(Input.GetKeyDown(KeyCode.U) && !ultimateIsReady)
+        {
+            Debug.Log("A ultimate ainda não esta pronta");
         }
         healthBar.SetHealth(playerHealth, maxHealth);
         if(playerHealth/100 > 7)
@@ -78,11 +83,22 @@ public class PlayerOneBehaviour : MonoBehaviour
     void Attack()
     {
         nextFire = Time.time + fireRate;
-        GameObject cloneCookie = Instantiate (bullet, bulletSpawn.position, bulletSpawn.rotation);
+        GameObject bullets = Instantiate (bullet, bulletSpawn.position, bulletSpawn.rotation);
+        bullets.GetComponent<AlysaBulletBehaviour>().typeOfSpawn = 0;
     }
     bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
+    }
+    IEnumerator example()
+    {
+        for(int i = 0;i<25;i++)
+        {
+            varX = Random.Range(-25f,15f);
+            GameObject meteoro = Instantiate(bullet,new Vector3(varX,4.4f,0f),Quaternion.Euler(0f,0f,-45f));
+            meteoro.GetComponent<AlysaBulletBehaviour>().typeOfSpawn = 1;
+            yield return new WaitForSeconds(Random.Range(0.05f,0.1f));
+        }
     }
     public void PlayerTakeDamage(float dmg)
     {
