@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4446756349694481270}
   - component: {fileID: 4446756349694481269}
   - component: {fileID: 4446756349694481268}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4446756349694481267}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 18.2, y: -1.32, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8440230643138077077}
@@ -136,6 +136,26 @@ PrefabInstance:
     - target: {fileID: 102676203830295544, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 102676203830295544, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815653438313647936, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1950915158063856801, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852861323589866179, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5542399239058226938, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5742964697997803377, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
       propertyPath: m_Pivot.x

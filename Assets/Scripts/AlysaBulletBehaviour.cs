@@ -4,28 +4,33 @@ using UnityEngine;
 
 public class AlysaBulletBehaviour : MonoBehaviour
 {
-    float projectileDmg = 10f;
+    public float projectileDmg = 10f;
     float varSpeed = 15f;
-    const float timeDestroy = 1f;
+    float timeDestroy = 1f;
     public static int typeOfBullet = 0;
     public int typeOfSpawn;
+    [SerializeField]
+    ParticleSystem ps;
     [SerializeField]
     Sprite[] emojis;
 
     void Start()
     {
-        if (typeOfSpawn == 0)
+        ps = gameObject.GetComponentInChildren<ParticleSystem>();
+        if(typeOfSpawn == 1)
         {
             gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
-            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
-        } else if(typeOfSpawn == 1)
+            ps.textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
+        } else if(typeOfSpawn == 2)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = emojis[Random.Range(0,3)];
-            gameObject.GetComponentInChildren<ParticleSystem>().textureSheetAnimation.SetSprite(0,emojis[Random.Range(0,3)]);
+            int i = Random.Range(0,3);
+            GetComponent<Collider2D>().enabled = false;
+            gameObject.GetComponent<SpriteRenderer>().sprite = emojis[i];
+            ps.textureSheetAnimation.SetSprite(0,emojis[i]);
+            timeDestroy = 1.7f;
         }
         Invoke("DestroyGameObject", timeDestroy);
     }
-    
     void Update()
     {
         //função que move o projetil pra frente:
@@ -37,7 +42,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
         EnemyBehaviour enemy = collision.GetComponent<EnemyBehaviour>();
         if (collision.gameObject.CompareTag("Ground"))
         {
-            DestroyGameObject();
+            //DestroyGameObject();
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -51,7 +56,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            child.GetComponent<ParticleSystem>().Stop();
+            ps.Stop();
             Destroy(child.gameObject, timeDestroy);
         }
         transform.DetachChildren();

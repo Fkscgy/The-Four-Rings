@@ -24,7 +24,6 @@ public class EnemyBehaviour : MonoBehaviour
         HitPoints -= damage;
         if (HitPoints <=0 )
         {
-            //ScoreBehaviour.scoreValue += 10;
             Destroy(gameObject);
         }
     }
@@ -36,4 +35,5 @@ public class EnemyBehaviour : MonoBehaviour
             player.PlayerTakeDamage(10f);
         }
     }
+    private void OnTriggerEnter2D(){}
 }
