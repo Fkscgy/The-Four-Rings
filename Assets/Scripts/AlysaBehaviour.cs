@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerOneBehaviour : MonoBehaviour
+public class AlysaBehaviour : MonoBehaviour, IPlayer
 {
     
     [SerializeField]
@@ -21,7 +21,7 @@ public class PlayerOneBehaviour : MonoBehaviour
     [SerializeField]
     HealthBarBehaviour healthBar;
     [SerializeField]
-    string aaa;
+    string SceneToLoad;
 
     float varX;
     float varSpeed = 5f;
@@ -31,6 +31,7 @@ public class PlayerOneBehaviour : MonoBehaviour
     float playerHealth;
     float nextFire;
     float direction;
+    public int tipo{get;set;}
     void Start()
     {
         playerHealth = maxHealth;
@@ -42,7 +43,7 @@ public class PlayerOneBehaviour : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.O))
         {
             playerHealth -=100;
-            SceneManager.LoadScene(aaa);
+            SceneManager.LoadScene(SceneToLoad);
         }
         if(playerHealth/100 > 7)
         AlysaBulletBehaviour.typeOfBullet = 0;
@@ -56,28 +57,30 @@ public class PlayerOneBehaviour : MonoBehaviour
             StartCoroutine(Ultimate());
         }
         healthBar.SetHealth(playerHealth, maxHealth);
-        Jump();
-        Attack();
-        transform.position += new Vector3(Input.GetAxis("Horizontal")*varSpeed*Time.deltaTime, 0f,0f);
-        if ( Input.GetAxis("Horizontal")>0)
+        
+        if ( Input.GetAxis("AxisTeclado")>0)
         {
            transform.eulerAngles = new Vector2(0f, 0f);
         }
-        if(Input.GetAxis("Horizontal")<0)
+        if(Input.GetAxis("AxisTeclado")<0)
         {
            transform.eulerAngles = new Vector2(0f, 180f);
         }
     }
-    void Jump()
+    public void Move(float axis)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        transform.position += new Vector3(axis*varSpeed*Time.deltaTime, 0f,0f);
+    }
+    public void Jump(bool key)
+    {
+        if (key && IsGrounded())
         {
             rig.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
-    void Attack()
+    public void Attack()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && Time.time >nextFire)
+        if (Time.time >nextFire)
         {
             nextFire = Time.time + fireRate;
             GameObject bullets =Instantiate (bullet, bulletSpawn.position, bulletSpawn.rotation);
@@ -88,7 +91,7 @@ public class PlayerOneBehaviour : MonoBehaviour
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
     }
-    IEnumerator Ultimate()
+    public IEnumerator Ultimate()
     {
         for(int i = 0;i<15;i++)
         {

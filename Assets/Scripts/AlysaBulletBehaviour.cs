@@ -19,13 +19,13 @@ public class AlysaBulletBehaviour : MonoBehaviour
         ps = gameObject.GetComponentInChildren<ParticleSystem>();
         if(typeOfSpawn == 1)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = emojis[typeOfBullet];
+            gameObject.GetComponentInChildren<SpriteRenderer>().sprite = emojis[typeOfBullet];
             ps.textureSheetAnimation.SetSprite(0,emojis[typeOfBullet]);
         } else if(typeOfSpawn == 2)
         {
             int i = Random.Range(0,3);
             GetComponent<Collider2D>().enabled = false;
-            gameObject.GetComponent<SpriteRenderer>().sprite = emojis[i];
+            gameObject.GetComponentInChildren<SpriteRenderer>().sprite = emojis[i];
             ps.textureSheetAnimation.SetSprite(0,emojis[i]);
             timeDestroy = 1.7f;
         }
@@ -42,7 +42,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
         EnemyBehaviour enemy = collision.GetComponent<EnemyBehaviour>();
         if (collision.gameObject.CompareTag("Ground"))
         {
-            //DestroyGameObject();
+            DestroyGameObject();
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -54,6 +54,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
     //metodo que destroi o objeto, mas mantem as particulas causando um melhor efeito visual
     void DestroyGameObject()
     {
+        gameObject.GetComponentInChildren<SpriteRenderer>().gameObject.SetActive(false);
         foreach (Transform child in transform)
         {
             ps.Stop();

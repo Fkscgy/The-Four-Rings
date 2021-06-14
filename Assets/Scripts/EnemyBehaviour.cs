@@ -29,11 +29,10 @@ public class EnemyBehaviour : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        PlayerOneBehaviour player = collision.collider.GetComponent<PlayerOneBehaviour>();
+        IPlayer player = collision.collider.GetComponent<IPlayer>();
         if (collision.collider.CompareTag("Player"))
         {
             player.PlayerTakeDamage(10f);
         }
     }
-    private void OnTriggerEnter2D(){}
 }
