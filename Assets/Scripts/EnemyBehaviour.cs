@@ -32,7 +32,7 @@ public class EnemyBehaviour : MonoBehaviour
         IPlayer player = collision.collider.GetComponent<IPlayer>();
         if (collision.collider.CompareTag("Player"))
         {
-            player.PlayerTakeDamage(10f);
+            player.PlayerTakeDamage(1f);
         }
     }
 }

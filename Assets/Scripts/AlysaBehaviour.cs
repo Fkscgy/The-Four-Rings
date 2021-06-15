@@ -19,44 +19,42 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     [SerializeField]
     LayerMask enemyLayers;
     [SerializeField]
-    HealthBarBehaviour healthBar;
-    [SerializeField]
-    string SceneToLoad;
+    // HealthBarBehaviour healthBar;
+    barradevida healthBar;
 
     float varX;
     float varSpeed = 5f;
     float jumpForce = 10;
     Rigidbody2D rig;
-    float maxHealth = 1000;
+    float maxHealth = 7f;
     float playerHealth;
     float nextFire;
     float direction;
-    public int tipo{get;set;}
+
     void Start()
     {
         playerHealth = maxHealth;
-        healthBar.SetHealth(playerHealth, maxHealth);
+        healthBar.SetHealth2(playerHealth, maxHealth);
         rig = this.GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.O))
+        if(Input.GetKeyDown(KeyCode.U))
         {
-            playerHealth -=100;
-            SceneManager.LoadScene(SceneToLoad);
+            playerHealth -=1;
         }
-        if(playerHealth/100 > 7)
+        if (playerHealth<=0)
+        {
+            Destroy(this.gameObject);
+        }
+        if(playerHealth> 5)
         AlysaBulletBehaviour.typeOfBullet = 0;
-        else if((playerHealth/100) > 4)
+        else if(playerHealth > 3)
         AlysaBulletBehaviour.typeOfBullet = 1;
         else
         AlysaBulletBehaviour.typeOfBullet = 2;
 
-        if(Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(Ultimate());
-        }
-        healthBar.SetHealth(playerHealth, maxHealth);
+        healthBar.SetHealth2(playerHealth, maxHealth);
         
         if ( Input.GetAxis("AxisTeclado")>0)
         {
@@ -78,9 +76,9 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
             rig.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
-    public void Attack()
+    public void Attack(bool key)
     {
-        if (Time.time >nextFire)
+        if (key &&Time.time >nextFire)
         {
             nextFire = Time.time + fireRate;
             GameObject bullets =Instantiate (bullet, bulletSpawn.position, bulletSpawn.rotation);
@@ -91,7 +89,11 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
     }
-    public IEnumerator Ultimate()
+    public void UsingUltimate()
+    {
+        StartCoroutine(Ultimate());
+    }
+    private IEnumerator Ultimate()
     {
         for(int i = 0;i<15;i++)
         {

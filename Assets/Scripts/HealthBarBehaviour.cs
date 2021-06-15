@@ -15,8 +15,7 @@ public class HealthBarBehaviour : MonoBehaviour
         slider.gameObject.SetActive(currhealt<maxHealt);
         slider.value = currhealt;
         slider.maxValue = maxHealt;
-        slider.fillRect.GetComponentInChildren<Image>().color = Color.Lerp(Low,High,slider.normalizedValue);
-        
+        slider.fillRect.GetComponentInChildren<Image>().color = Color.Lerp(Low,High,slider.normalizedValue); 
     }
     
     void Update()

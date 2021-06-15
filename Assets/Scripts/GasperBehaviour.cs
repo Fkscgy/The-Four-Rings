@@ -12,13 +12,13 @@ public class GasperBehaviour : MonoBehaviour, IPlayer
     [SerializeField]
     LayerMask enemyLayers;
     [SerializeField]
-    HealthBarBehaviour healthBar;
+    barradevida healthBar;
 
     float varX;
     float varSpeed = 5f;
     float jumpForce = 10;
     Rigidbody2D rig;
-    float maxHealth = 1000;
+    float maxHealth = 7f;
     float playerHealth;
     float direction;
 
@@ -26,13 +26,21 @@ public class GasperBehaviour : MonoBehaviour, IPlayer
     void Start()
     {
         playerHealth = maxHealth;
-        healthBar.SetHealth(playerHealth, maxHealth);
+        healthBar.SetHealth2(playerHealth, maxHealth);
         rig = this.GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        healthBar.SetHealth(playerHealth, maxHealth);
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            playerHealth -=1;
+        }
+        if (playerHealth<=0)
+        {
+            Destroy(this.gameObject);
+        }
+        healthBar.SetHealth2(playerHealth, maxHealth);
     }
     public void Jump(bool key)
     {
@@ -49,17 +57,21 @@ public class GasperBehaviour : MonoBehaviour, IPlayer
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
     }
-    public void Attack()
+    public void Attack(bool key)
     {
+        if(key)
         Debug.Log("Ataque do Casper");
     }
-    public IEnumerator Ultimate()
+    public void UsingUltimate()
     {
-        yield return new WaitForSeconds(0.2f);
+        Ultimate();
+    }
+    public void Ultimate()
+    {
         Debug.Log("Ult do Gasper");
     }
     public void PlayerTakeDamage(float dmg)
     {
-
+        playerHealth -= dmg;
     }
 }

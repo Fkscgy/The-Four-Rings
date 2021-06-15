@@ -5,8 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public static int p1,p2 = 0;
-
+    
     public void LoadGameScene(string index)
     {
         SceneManager.LoadScene(index);
@@ -17,10 +16,10 @@ public class MainMenu : MonoBehaviour
     }
     public void SelectPlayer1(int charIndex)
     {
-        p1 = charIndex;
+        Player1.tipo = charIndex;
     }
     public void SelectPlayer2(int charIndex)
     {
-        p2= charIndex;
+        Player2.tipo = charIndex;
     }
 }

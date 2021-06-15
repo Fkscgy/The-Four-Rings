@@ -4,35 +4,19 @@ using UnityEngine;
 
 public class Player1 : MonoBehaviour
 {
-    public int tipo{get;set;}
+    public static int tipo{get;set;}
+    [SerializeField]
+    GameObject[] chars;
     IPlayer player;
     void Awake()
     {
-        switch(tipo)
-        {
-            case 1:
-            transform.Find("Alysa").gameObject.SetActive(true);
-            player =transform.Find("Alysa").GetComponent<IPlayer>();
-            break;
-            case 2:
-            transform.Find("Gasper").gameObject.SetActive(true);
-            player =transform.Find("Gasper").GetComponent<IPlayer>();
-            break;
-            // case 3:
-            // transform.Find("Alysa").gameObject.SetActive(true);
-            // break;
-            // case 4:
-            // transform.Find("Alysa").gameObject.SetActive(true);
-            // break;
-            default:
-            transform.Find("Alysa").gameObject.SetActive(true);
-            player = transform.Find("Alysa").GetComponent<IPlayer>();
-            break;
-        }
+        chars[tipo].gameObject.SetActive(true);
+        player = chars[tipo].GetComponent<IPlayer>();
     }
     void Update()
     {
         player.Move(Input.GetAxis("AxisJoyStick"));
         player.Jump(Input.GetKeyDown(KeyCode.JoystickButton0));
+        player.Attack(Input.GetKeyDown(KeyCode.JoystickButton3));
     }
 }
