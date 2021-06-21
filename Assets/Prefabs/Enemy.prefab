@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 8440230643138077077}
+  - {fileID: 6802011070630491638}
+  - {fileID: 7466146204756017981}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
@@ -125,8 +126,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitPoints: 15
   MaxHitPoints: 25
-  HealthBar: {fileID: 1244553677730029566}
---- !u!1001 &4220614996085235428
+  HealthBar: {fileID: 4179809891250719645}
+  target: {fileID: 0}
+  firePoint: {fileID: 7466146204756017981}
+  bulletPrefab: {fileID: 776966113560254784, guid: 0eea25006aea096478dbd74857311d40, type: 3}
+  turnSpeed: 0
+--- !u!1 &5308249959005344850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7466146204756017981}
+  m_Layer: 0
+  m_Name: Gun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7466146204756017981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308249959005344850}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4446756349694481271}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1285358713832475271
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -135,27 +170,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 102676203830295544, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
       propertyPath: m_Name
-      value: Canvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 102676203830295544, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1815653438313647936, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 1950915158063856801, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3852861323589866179, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5542399239058226938, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-      propertyPath: m_Layer
-      value: 6
+      value: HealthBar
       objectReference: {fileID: 0}
     - target: {fileID: 5742964697997803377, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
       propertyPath: m_Pivot.x
@@ -243,15 +258,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
---- !u!224 &8440230643138077077 stripped
+--- !u!224 &6802011070630491638 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5742964697997803377, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-  m_PrefabInstance: {fileID: 4220614996085235428}
+  m_PrefabInstance: {fileID: 1285358713832475271}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1244553677730029566 stripped
+--- !u!114 &4179809891250719645 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3159037661241000218, guid: d6d9484689a1bb147b0870cdd5744cb7, type: 3}
-  m_PrefabInstance: {fileID: 4220614996085235428}
+  m_PrefabInstance: {fileID: 1285358713832475271}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1

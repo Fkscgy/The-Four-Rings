@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class AlysaBulletBehaviour : MonoBehaviour
 {
-    public float projectileDmg = 10f;
+    [SerializeField]
+    float projectileDmg = 10f;
+    [SerializeField]
     float varSpeed = 15f;
+    [SerializeField]
     float timeDestroy = 1f;
     public static int typeOfBullet = 0;
     public int typeOfSpawn;
@@ -61,6 +64,6 @@ public class AlysaBulletBehaviour : MonoBehaviour
             Destroy(child.gameObject, timeDestroy);
         }
         transform.DetachChildren();
-        Destroy(gameObject);
+        Destroy(gameObject);    
     }
 }

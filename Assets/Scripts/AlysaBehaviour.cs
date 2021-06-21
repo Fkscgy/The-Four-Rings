@@ -31,6 +31,7 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     float nextFire;
     float direction;
 
+
     void Start()
     {
         playerHealth = maxHealth;
