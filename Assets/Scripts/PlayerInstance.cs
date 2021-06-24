@@ -19,6 +19,6 @@ public interface IPlayer
     void Move(float axis);
     void Jump(bool key);
     void Attack(bool key);
-    void UsingUltimate();
+    void UsingUltimate(bool key);
     void PlayerTakeDamage(float dmg);
 }

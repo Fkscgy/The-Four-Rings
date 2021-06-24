@@ -62,9 +62,10 @@ public class GasperBehaviour : MonoBehaviour, IPlayer
         if(key)
         Debug.Log("Ataque do Casper");
     }
-    public void UsingUltimate()
+    public void UsingUltimate(bool key)
     {
-        Ultimate();
+        if(key)
+        print("ult gasper");
     }
     public void Ultimate()
     {

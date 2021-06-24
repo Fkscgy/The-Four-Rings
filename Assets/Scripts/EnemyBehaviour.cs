@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    public float HitPoints;
-    public float MaxHitPoints;
-    public HealthBarBehaviour HealthBar;
+    float HitPoints,MaxHitPoints = 10f;
     [SerializeField]
     Transform target;
     float range = 5f;
@@ -21,12 +19,10 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         HitPoints = MaxHitPoints;
-        HealthBar.SetHealth(HitPoints,MaxHitPoints);
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
     void Update()   
     {
-        HealthBar.SetHealth(HitPoints,MaxHitPoints);
         if(target != null)
         {
             Shooting();

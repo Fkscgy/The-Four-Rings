@@ -18,5 +18,7 @@ public class Player1 : MonoBehaviour
         player.Move(Input.GetAxis("AxisJoyStick"));
         player.Jump(Input.GetKeyDown(KeyCode.JoystickButton0));
         player.Attack(Input.GetKeyDown(KeyCode.JoystickButton3));
+        player.UsingUltimate(Input.GetKeyDown(KeyCode.JoystickButton1));
+
     }
 }

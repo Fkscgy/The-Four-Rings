@@ -18,5 +18,6 @@ public class Player2 : MonoBehaviour
         player.Move(Input.GetAxis("AxisTeclado"));
         player.Jump(Input.GetKeyDown(KeyCode.Space));
         player.Attack(Input.GetKeyDown(KeyCode.Q));
+        player.UsingUltimate(Input.GetKeyDown(KeyCode.T));
     }
 }
