@@ -5,7 +5,7 @@ using UnityEngine;
 public class AlysaBulletBehaviour : MonoBehaviour
 {
     [SerializeField]
-    float projectileDmg = 10f;
+    float projectileDmg;
     [SerializeField]
     float varSpeed = 15f;
     [SerializeField]
@@ -16,6 +16,8 @@ public class AlysaBulletBehaviour : MonoBehaviour
     ParticleSystem ps;
     [SerializeField]
     Sprite[] emojis;
+
+    public float TimeDestroy { get => timeDestroy; private set => timeDestroy = value; }
 
     void Start()
     {
@@ -30,9 +32,9 @@ public class AlysaBulletBehaviour : MonoBehaviour
             GetComponent<Collider2D>().enabled = false;
             gameObject.GetComponentInChildren<SpriteRenderer>().sprite = emojis[i];
             ps.textureSheetAnimation.SetSprite(0,emojis[i]);
-            timeDestroy = 1.7f;
+            TimeDestroy = 1.7f;
         }
-        Invoke("DestroyGameObject", timeDestroy);
+        Invoke("DestroyGameObject", TimeDestroy);
     }
     void Update()
     {
@@ -42,7 +44,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         //serve pra definir oq é um inimigo
-        EnemyBehaviour enemy = collision.GetComponent<EnemyBehaviour>();
+        // EnemyBehaviour enemy = collision.GetComponent<EnemyBehaviour>();
         if (collision.gameObject.CompareTag("Ground"))
         {
             DestroyGameObject();
@@ -50,7 +52,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             //metodo do inimigo tomar dano
-            enemy.TakeHit(projectileDmg);
+            // enemy.TakeHit(projectileDmg);
             DestroyGameObject();
         }
     }
@@ -61,7 +63,7 @@ public class AlysaBulletBehaviour : MonoBehaviour
         foreach (Transform child in transform)
         {
             ps.Stop();
-            Destroy(child.gameObject, timeDestroy);
+            Destroy(child.gameObject, TimeDestroy);
         }
         transform.DetachChildren();
         Destroy(gameObject);    

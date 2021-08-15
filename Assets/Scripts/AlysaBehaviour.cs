@@ -5,21 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class AlysaBehaviour : MonoBehaviour, IPlayer
 {
-    
-    [SerializeField]
-    float fireRate;
-    [SerializeField]
-    GameObject bullet;
-    [SerializeField]
-    Transform bulletSpawn;
-    [SerializeField]    
-    Transform groundCheck;
-    [SerializeField]
-    LayerMask groundLayers;
-    [SerializeField]
-    LayerMask enemyLayers;
-    [SerializeField]
-    barradevida healthBar;
+    [SerializeField] float fireRate;
+    [SerializeField] GameObject bullet;
+    [SerializeField] Transform bulletSpawn;
+    [SerializeField] Transform groundCheck;
+    [SerializeField] LayerMask groundLayers;
+    [SerializeField] LayerMask enemyLayers;
 
     float varX;
     float varSpeed = 5f;
@@ -29,55 +20,53 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     float playerHealth;
     float nextFire;
     float direction;
-
+    bool facingRight = true;
 
     void Start()
     {
         playerHealth = maxHealth;
-        healthBar.SetHealth2(playerHealth, maxHealth);
         rig = this.GetComponent<Rigidbody2D>();
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.U))
-        {
-            playerHealth -=1;
-        }
-        if (playerHealth<=0)
-        {
-            Destroy(this.gameObject);
-        }
-        if(playerHealth> 5)
-        AlysaBulletBehaviour.typeOfBullet = 0;
-        else if(playerHealth > 3)
-        AlysaBulletBehaviour.typeOfBullet = 1;
-        else
-        AlysaBulletBehaviour.typeOfBullet = 2;
+        direction = Input.GetAxisRaw("Horizontal");
 
-        healthBar.SetHealth2(playerHealth, maxHealth);
+        if(Input.GetKeyDown(KeyCode.E))
+        Attack();
+        if(Input.GetKeyDown(KeyCode.Q))
+        StartCoroutine(Ultimate());
     }
-    public void Move(float axis)
+    void FixedUpdate()
     {
-        transform.position += new Vector3(axis*varSpeed*Time.deltaTime, 0f,0f);
-        if (axis>0)
+        Move(direction);
+    }
+    void Move(float dir)
+    {
+        float xVal = dir * varSpeed * 100 * Time.fixedDeltaTime;
+        Vector2 targetVelocity = new Vector2(xVal, rig.velocity.y);
+        rig.velocity = targetVelocity;
+ 
+        if(facingRight && dir < 0)
         {
-           transform.eulerAngles = new Vector2(0f, 0f);
+            transform.eulerAngles = new Vector2(0f, 180f);
+            facingRight = false;
         }
-        if(axis<0)
+        else if(!facingRight && dir > 0)
         {
-           transform.eulerAngles = new Vector2(0f, 180f);
+            transform.eulerAngles = new Vector2(0f, 0f);
+            facingRight = true;
         }
     }
-    public void Jump(bool key)
+    public void Jump()
     {
-        if (key && IsGrounded())
+        if (IsGrounded())
         {
             rig.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
-    public void Attack(bool key)
+    public void Attack()
     {
-        if (key &&Time.time >nextFire)
+        if (Time.time >nextFire)
         {
             nextFire = Time.time + fireRate;
             GameObject bullets =Instantiate (bullet, bulletSpawn.position, bulletSpawn.rotation);
@@ -88,11 +77,6 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     {
         return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
     }
-    public void UsingUltimate(bool key)
-    {
-        if(key)
-        StartCoroutine(Ultimate());
-    }
     IEnumerator Ultimate()
     {
         for(int i = 0;i<15;i++)
@@ -102,19 +86,26 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
             meteoro.GetComponent<AlysaBulletBehaviour>().typeOfSpawn = 2;
             yield return new WaitForSeconds(Random.Range(0.1f,0.2f));
         }
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.7f);
+        Debug.Log("xablau");
         Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position,new Vector2(100,30f),0f,enemyLayers);
         foreach(Collider2D enemy in enemies)
         {
-            enemy.GetComponent<EnemyBehaviour>().TakeHit(10f);
+            // enemy.GetComponent<EnemyBehaviour>().TakeHit(10f);
         }
     }
-    public void PlayerTakeDamage(float dmg)
+    public void PlayerTakeDamage(int dmg)
     {
         playerHealth -= dmg;
-        if (playerHealth<=0)
-        {
-            Destroy(this.gameObject);
-        }
+        if(playerHealth> 5)
+        AlysaBulletBehaviour.typeOfBullet = 0;
+        else if(playerHealth > 3)
+        AlysaBulletBehaviour.typeOfBullet = 1;
+        else
+        AlysaBulletBehaviour.typeOfBullet = 2;
+        // if (playerHealth<=0)
+        // {
+        //     Destroy(this.gameObject);
+        // }
     }
 }
