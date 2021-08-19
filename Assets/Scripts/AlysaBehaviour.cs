@@ -35,6 +35,8 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
         Attack();
         if(Input.GetKeyDown(KeyCode.Q))
         StartCoroutine(Ultimate());
+        if(Input.GetKeyDown(KeyCode.Space))
+        Jump();
     }
     void FixedUpdate()
     {
@@ -57,14 +59,14 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
             facingRight = true;
         }
     }
-    public void Jump()
+    void Jump()
     {
         if (IsGrounded())
         {
-            rig.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
+            rig.velocity = Vector2.up * jumpForce;
         }
     }
-    public void Attack()
+    void Attack()
     {
         if (Time.time >nextFire)
         {
@@ -107,5 +109,9 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
         // {
         //     Destroy(this.gameObject);
         // }
+    }
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("AA");
     }
 }

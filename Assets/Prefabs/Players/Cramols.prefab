@@ -49,7 +49,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7938474564959207649
 Transform:
   m_ObjectHideFlags: 0
@@ -176,6 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c949fe21f231afe4bae9c85b45a83450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireRate: 0
+  bullet: {fileID: 0}
   bulletSpawn: {fileID: 6427505281580619244}
   groundCheck: {fileID: 6832568249161442973}
   groundLayers:
@@ -184,7 +186,6 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 64
-  varSpeed: 5
 --- !u!1 &9134329752446838641
 GameObject:
   m_ObjectHideFlags: 0
