@@ -21,14 +21,17 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     float nextFire;
     float direction;
     bool facingRight = true;
+    Animator animator;
 
     void Start()
     {
         playerHealth = maxHealth;
         rig = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
     }
     void Update()
     {
+        animator.SetBool("isParado", rig.velocity.x == 0);
         direction = Input.GetAxisRaw("Horizontal");
 
         if(Input.GetKeyDown(KeyCode.E))
@@ -89,7 +92,6 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
             yield return new WaitForSeconds(Random.Range(0.1f,0.2f));
         }
         yield return new WaitForSeconds(1.7f);
-        Debug.Log("xablau");
         Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position,new Vector2(100,30f),0f,enemyLayers);
         foreach(Collider2D enemy in enemies)
         {
