@@ -40,6 +40,7 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
         StartCoroutine(Ultimate());
         if(Input.GetKeyDown(KeyCode.Space))
         Jump();
+
     }
     void FixedUpdate()
     {
@@ -67,6 +68,7 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
         if (IsGrounded())
         {
             rig.velocity = Vector2.up * jumpForce;
+            animator.SetTrigger("Pulo");
         }
     }
     void Attack()

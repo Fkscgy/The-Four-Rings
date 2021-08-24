@@ -12,9 +12,11 @@ public class CameraBehaviour : MonoBehaviour
     public float minZoom = 40f;
     public float maxZoom = 10f;
     public float zoomLimiter = 50f;
+    public float maxPoint, minPoint;
 
     private Vector3 velocity;
     private Camera cam;
+
 
     void Start()
     {
@@ -38,7 +40,15 @@ public class CameraBehaviour : MonoBehaviour
 
         Vector3 newPosition = centerPoint + offset;
 
-        transform.position = Vector3.SmoothDamp(transform.position, newPosition, ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(newPosition.x,0f,newPosition.z), ref velocity, smoothTime);
+        if(transform.position.x < minPoint)
+        {
+            transform.position = new Vector3(minPoint,0f, transform.position.y+offset.z);
+        }
+        else if(transform.position.x > maxPoint)
+        {
+            transform.position = new Vector3(maxPoint,0f, transform.position.y+offset.z);
+        }
     }
 
     float GetGreatestDistance()
