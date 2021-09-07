@@ -11,23 +11,39 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayers;
     [SerializeField] LayerMask enemyLayers;
+    [SerializeField] SliderBehaviour hpBar;
+    [SerializeField] SliderBehaviour enBar;
+
 
     float varX;
     float varSpeed = 5f;
     float jumpForce = 10;
     Rigidbody2D rig;
-    float maxHealth = 7f;
-    float playerHealth;
+    int maxHp = 10;
+    int hp;
+    int maxEn = 10;
+    int en;
     float nextFire;
     float direction;
     bool facingRight = true;
     Animator animator;
+    [SerializeField]
+    CameraBehaviour mainCamera;
+
+    public int MaxHp { get => maxHp; set => maxHp = value; }
+    public int Hp { get => hp; set => hp = value; }
+    public int MaxEn { get => maxEn; set => maxEn = value; }
+    public int En { get => en; set => en = value; }
 
     void Start()
     {
-        playerHealth = maxHealth;
+        Hp = MaxHp;
+        En = 0;
+        hpBar.SetSlider(Hp,MaxHp);
+        enBar.SetSlider(En,MaxEn);
         rig = this.GetComponent<Rigidbody2D>();
         animator = this.GetComponent<Animator>();
+        // mainCamera = GameObject.Find("Camera").GetComponent<CameraBehaviour>();
     }
     void Update()
     {
@@ -40,7 +56,8 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
         StartCoroutine(Ultimate());
         if(Input.GetKeyDown(KeyCode.Space))
         Jump();
-
+        if(Input.GetKeyDown(KeyCode.Y))
+        PlayerTakeDamage(1);
     }
     void FixedUpdate()
     {
@@ -94,28 +111,60 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
             yield return new WaitForSeconds(Random.Range(0.1f,0.2f));
         }
         yield return new WaitForSeconds(1.7f);
-        Collider2D[] enemies = Physics2D.OverlapBoxAll(transform.position,new Vector2(100,30f),0f,enemyLayers);
-        foreach(Collider2D enemy in enemies)
-        {
-            // enemy.GetComponent<EnemyBehaviour>().TakeHit(10f);
-        }
+        //Collider2D[] enemies = GameObject.FindGameObjectsWithTag("Enemy").GetComponent<EnemyBehaviour>().TakeDamage(2);
     }
     public void PlayerTakeDamage(int dmg)
     {
-        playerHealth -= dmg;
-        if(playerHealth> 5)
+        Hp -= dmg;
+        hpBar.SetSlider(Hp,MaxHp);
+        if(Hp > 5)
         AlysaBulletBehaviour.typeOfBullet = 0;
-        else if(playerHealth > 3)
+        else if(Hp > 3)
         AlysaBulletBehaviour.typeOfBullet = 1;
         else
         AlysaBulletBehaviour.typeOfBullet = 2;
-        // if (playerHealth<=0)
-        // {
-        //     Destroy(this.gameObject);
-        // }
+        if(Hp <= 0)
+        {
+            GameController.KillPlayer(this.gameObject);
+        }
     }
-    void OnCollisionEnter2D(Collision2D collision)
+    void PlayerRegenLife(int heal)
     {
-        Debug.Log("AA");
+        if(maxHp==Hp)
+        return;
+        if(heal + Hp > maxHp)
+        {
+            Hp = maxHp;
+        } else 
+        {
+            Hp += heal;
+        }
+        hpBar.SetSlider(Hp,MaxHp);
+    }
+    void PlayerRegenEnergy(int charge)
+    {
+        if(MaxEn==En)
+        return;
+        if(charge + En > MaxEn)
+        {
+            En = MaxEn;
+        } else 
+        {
+            En += charge;
+        }
+        enBar.SetSlider(En,MaxEn);
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if(col.CompareTag("Vida"))
+        {
+            Destroy(col.gameObject);
+            PlayerRegenLife(3);
+        }
+        if(col.CompareTag("Energia"))
+        {
+            Destroy(col.gameObject);
+            PlayerRegenEnergy(3);
+        }
     }
 }
