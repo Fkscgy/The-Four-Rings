@@ -21,7 +21,7 @@ public class CameraBehaviour : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        Targets = GameController.Players;
+        Targets = GameController.Players1;
     }
     void LateUpdate()
     {
@@ -35,14 +35,14 @@ public class CameraBehaviour : MonoBehaviour
 
         Vector3 newPosition = centerPoint + offset;
             
-        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(newPosition.x,6f,newPosition.z), ref velocity, smoothTime);
+        transform.position = Vector3.SmoothDamp(transform.position, new Vector3(newPosition.x,6f,-10f), ref velocity, smoothTime);
         if(transform.position.x < minPoint)
         {
-            transform.position = new Vector3(minPoint,6f, transform.position.y+offset.z);
+            transform.position = new Vector3(minPoint,6f,-10f);
         }
         else if(transform.position.x > maxPoint)
         {
-            transform.position = new Vector3(maxPoint,6f, transform.position.z+offset.z);
+            transform.position = new Vector3(maxPoint,6f,-10f);
         }
     }
     Vector3 GetCenterPoint()

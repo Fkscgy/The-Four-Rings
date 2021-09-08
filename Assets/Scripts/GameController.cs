@@ -5,25 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField]
-    public static List<GameObject> Players;
-    
-    private static CameraBehaviour mainCamera;
+    private static List<GameObject> Players;
+
+    public static List<GameObject> Players1 { get => Players;private set => Players = value; }
 
     void Awake()
     {
-        Players = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
-        mainCamera = GameObject.Find("Main Camera").GetComponent<CameraBehaviour>();
+        Players1 = new List<GameObject>(GameObject.FindGameObjectsWithTag("Player"));
     }
     public static void KillPlayer(GameObject player)
     {
-        if(Players.Count == 1)
+        if(Players1.Count == 1)
         {
-            SceneManager.LoadScene("GameOver");
+            GameObject.Find("GameOverObject").transform.GetChild(0).gameObject.SetActive(true);
         } else
         {
-            mainCamera.Targets.Remove(player);
-            Players.Remove(player);
+            GameObject.Find("Main Camera").GetComponent<CameraBehaviour>().Targets.Remove(player);
             Destroy(player);
         }
     }
