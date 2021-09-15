@@ -2813,6 +2813,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 352702697}
     m_Modifications:
+    - target: {fileID: 774493388, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 774493388, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 1.48
+      objectReference: {fileID: 0}
     - target: {fileID: 819535797799515401, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
       propertyPath: enBar
       value: 
@@ -2825,6 +2833,46 @@ PrefabInstance:
       propertyPath: hpBarr
       value: 
       objectReference: {fileID: 106775323}
+    - target: {fileID: 5068040515405926013, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_Size.x
+      value: 1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068040515405926013, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_Size.y
+      value: 1.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 5068040515405926013, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2235c8912d8ea24a9d8d84ce6095ffd, type: 3}
+    - target: {fileID: 5068040515405926013, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427505281580619244, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427505281580619244, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427505281580619244, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427505281580619244, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427505281580619244, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427505281580619244, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7872584559891352402, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
       propertyPath: m_Name
       value: Cramols
@@ -2873,8 +2921,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9134329752446838641, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
+    - target: {fileID: 9134329752446838641, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+      propertyPath: m_Name
+      value: AttackPoint
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+--- !u!1 &1814558769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7872584559891352402, guid: e3111ddfdefb16f439cc9ba24fed63fc, type: 3}
+  m_PrefabInstance: {fileID: 1814558768}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1814558770
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814558769}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee4699a82a22f914099fbf1734667c2b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1821282173
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,6 +28,7 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     bool facingRight = true;
     bool isReady;
     Animator animator;
+    bool isGrounded;
     [SerializeField]
     CameraBehaviour mainCamera;
 
@@ -51,6 +52,8 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     {
         animator.SetBool("isParado", rig.velocity.x == 0);
         direction = Input.GetAxisRaw("Horizontal");
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
+        animator.SetBool("isGrounded", isGrounded);
 
         if(Input.GetKeyDown(KeyCode.E))
         Attack();
@@ -70,7 +73,7 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
         float xVal = dir * varSpeed * 100 * Time.fixedDeltaTime;
         Vector2 targetVelocity = new Vector2(xVal, rig.velocity.y);
         rig.velocity = targetVelocity;
- 
+
         if(facingRight && dir < 0)
         {
             transform.eulerAngles = new Vector2(0f, 180f);
@@ -84,10 +87,10 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     }
     void Jump()
     {
-        if (IsGrounded())
+        if (isGrounded)
         {
-            rig.velocity = Vector2.up * jumpForce;
             animator.SetTrigger("Pulo");
+            rig.velocity = Vector2.up * jumpForce;
         }
     }
     void Attack()
@@ -98,10 +101,6 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
             GameObject bullets =Instantiate (bullet, bulletSpawn.position, bulletSpawn.rotation);
             bullets.GetComponent<AlysaBulletBehaviour>().typeOfSpawn = 1;
         }
-    }
-    bool IsGrounded()
-    {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
     }
     IEnumerator Ultimate()
     {
@@ -158,15 +157,16 @@ public class AlysaBehaviour : MonoBehaviour, IPlayer
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.CompareTag("Vida"))
+        switch(col.tag)
         {
-            Destroy(col.gameObject);
-            PlayerRegenLife(3);
-        }
-        if(col.CompareTag("Energia"))
-        {
-            Destroy(col.gameObject);
-            PlayerRegenEnergy(3);
+            case "Vida":
+                Destroy(col.gameObject);
+                PlayerRegenLife(3);
+            break;
+            case "Energia":
+                Destroy(col.gameObject);
+                PlayerRegenEnergy(3);
+            break;
         }
     }
 }

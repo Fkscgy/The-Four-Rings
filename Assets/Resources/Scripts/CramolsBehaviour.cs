@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class CramolsBehaviour : MonoBehaviour, IPlayer
 {
     [SerializeField] float fireRate;
-    [SerializeField] GameObject bullet;
     [SerializeField] Transform bulletSpawn;
     [SerializeField] Transform groundCheck;
     [SerializeField] LayerMask groundLayers;
@@ -14,6 +13,7 @@ public class CramolsBehaviour : MonoBehaviour, IPlayer
     [SerializeField] SliderBehaviour hpBar;
     [SerializeField] SliderBehaviour enBar;
 
+    float varX;
     float varSpeed = 5f;
     float jumpForce = 10;
     Rigidbody2D rig;
@@ -23,7 +23,12 @@ public class CramolsBehaviour : MonoBehaviour, IPlayer
     int en;
     float nextFire;
     float direction;
+    bool facingRight = true;
     bool isReady;
+    Animator animator;
+    bool isGrounded;
+    [SerializeField]
+    CameraBehaviour mainCamera;
 
     public int MaxHp { get => maxHp; set => maxHp = value; }
     public int Hp { get => hp; set => hp = value; }
@@ -38,11 +43,27 @@ public class CramolsBehaviour : MonoBehaviour, IPlayer
         hpBar.SetSlider(Hp,MaxHp);
         enBar.SetSlider(En,MaxEn);
         rig = this.GetComponent<Rigidbody2D>();
+        animator = this.GetComponent<Animator>();
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
+        animator.SetBool("isParado", rig.velocity.x == 0);
+        direction = Input.GetAxisRaw("Horizontal");
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
+        animator.SetBool("isGrounded", isGrounded);
+
+        if(Input.GetKeyDown(KeyCode.E))
+        Attack();
+        if(Input.GetKeyDown(KeyCode.Q))
+        StartCoroutine(Ultimate());
+        if(Input.GetKeyDown(KeyCode.Space))
+        Jump();
+        if(Input.GetKeyDown(KeyCode.Y))
         PlayerTakeDamage(1);
+    }
+    void FixedUpdate()
+    {
+        Move(direction);
     }
     void Move(float axis)
     {
@@ -56,26 +77,21 @@ public class CramolsBehaviour : MonoBehaviour, IPlayer
            transform.eulerAngles = new Vector2(0f, 180f);
         }
     }
-    void Jump(bool key)
+    void Jump()
     {
-        if (key && IsGrounded())
+        if (isGrounded)
         {
             rig.AddForce(new Vector2(0f,jumpForce), ForceMode2D.Impulse);
         }
     }
-    void Attack(bool key)
+    void Attack()
     {
-        if(key)
         print("Ataque Cramols");
     }
-    bool IsGrounded()
+    IEnumerator Ultimate()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, 0.5f, groundLayers);
-    }
-    void UsingUltimate(bool key)
-    {
-        if(key)
         print("ult cramols");
+        yield return new WaitForSeconds (2f);
     }
     public void PlayerTakeDamage(int dmg)
     {
@@ -114,15 +130,16 @@ public class CramolsBehaviour : MonoBehaviour, IPlayer
     }
     void OnTriggerEnter2D(Collider2D col)
     {
-        if(col.CompareTag("Vida"))
+        switch(col.tag)
         {
-            Destroy(col.gameObject);
-            PlayerRegenLife(3);
-        }
-        if(col.CompareTag("Energia"))
-        {
-            Destroy(col.gameObject);
-            PlayerRegenEnergy(3);
+            case "Vida":
+                Destroy(col.gameObject);
+                PlayerRegenLife(3);
+            break;
+            case "Energia":
+                Destroy(col.gameObject);
+                PlayerRegenEnergy(3);
+            break;
         }
     }
 }
